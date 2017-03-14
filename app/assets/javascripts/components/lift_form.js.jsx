@@ -9,14 +9,12 @@ var LiftForm = React.createClass({
       onerm: ''
     }
   },
+  
   handleValueChange(e){
     valueName = e.target.name;
     this.setState({[valueName]: e.target.value});
   },
-  valid(){
-    var state = this.state;
-    state.date && state.liftname && state.ismetric && state.weightlifted && state.repsperformed && state.onerm
-  },
+
   handleSubmit(e){
     e.preventDefault();
     var payload = {
@@ -35,8 +33,6 @@ var LiftForm = React.createClass({
       type: 'POST',
       data: payload,
       success: function(data){
-        this.props.handleNewRecord(data);
-        this.setState(this.getInitialState);
       }.bind(this)
     });
   },

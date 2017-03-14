@@ -1,6 +1,10 @@
 class LiftsController < ApplicationController
   def index
-    @lifts = Lift.all
+    @lifts = Lift.all.order('created_at DESC')
+    respond_to do |format|
+      format.html
+      format.json { render json: @lifts }
+    end
   end
 
   def create

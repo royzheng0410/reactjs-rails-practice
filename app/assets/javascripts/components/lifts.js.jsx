@@ -2,17 +2,27 @@ var Lifts = React.createClass({
   getInitialState(){
     return {lifts: this.props.lifts}
   },
-  addRecord(lift){
-    var lifts = this.state.lifts.slice();
-    lifts.push(lift)
-    this.setState({lifts: lifts})
+
+  fetchLifts(){
+    $.getJSON(
+      this.props.liftsPath,
+      (data) => this.setState({lifts: data})
+    );
+  },
+
+  componentWillMount(){
+    setInterval(this.fetchLifts, 300);
+  },
+
+  componentWillUnmount(){
+    clearInterval();
   },
   render(){
     return (
       <div className='lifts'>
         <h1 className='title'></h1>
         Items
-        <LiftForm handleNewRecord={this.addRecord}/>
+        <LiftForm />
         <table className='table table-bordered'>
           <thead >
             <tr>
